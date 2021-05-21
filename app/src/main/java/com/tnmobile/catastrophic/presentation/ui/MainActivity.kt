@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.tnmobile.catastrophic.R
 import com.tnmobile.catastrophic.presentation.ui.screen.MainFragment
-import com.tnmobile.catastrophic.util.TNLog
+import com.tnmobile.catastrophic.utilily.TNLog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -1,4 +1,4 @@
-package com.tnmobile.catastrophic.util
+package com.tnmobile.catastrophic.utilily
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder

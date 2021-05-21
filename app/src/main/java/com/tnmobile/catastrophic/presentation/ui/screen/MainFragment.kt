@@ -1,22 +1,22 @@
 package com.tnmobile.catastrophic.presentation.ui.screen
 
 import android.os.Bundle
+import android.view.*
+import android.view.ScaleGestureDetector.SimpleOnScaleGestureListener
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
+import com.tnmobile.catastrophic.R
 import com.tnmobile.catastrophic.domain.model.Cat
 import com.tnmobile.catastrophic.presentation.ui.adapter.CatAdapter
-import com.tnmobile.catastrophic.util.TNLog
-import com.tnmobile.catastrophic.R
+import com.tnmobile.catastrophic.utilily.TNLog
+import com.tnmobile.catastrophic.utilily.Util
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.layout_error.*
 import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.main_fragment.view.*
+
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
@@ -28,13 +28,14 @@ class MainFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
     private lateinit var adapter: CatAdapter
     private lateinit var mRootView: View
+
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.main_fragment, container, false)
-        TNLog.d("MainFragment","DEBUG onCreateView")
+        TNLog.d("MainFragment", "DEBUG onCreateView")
         mRootView = root
         return root
     }
@@ -46,23 +47,20 @@ class MainFragment : Fragment() {
         setupViewModel()
         setupUI(mRootView)
 
-        TNLog.d("MainFragment","DEBUG onActivityCreated")
+        TNLog.d("MainFragment", "DEBUG onActivityCreated")
 
         viewModel.loadCatsData()
     }
+
     //ui
     private fun setupUI(root: View) {
         adapter = CatAdapter(
-            viewModel.cats.value ?: emptyList()
+                viewModel.cats.value ?: emptyList()
         )
-        root.recyclerView.layoutManager = LinearLayoutManager(this.context)
+        val mNoOfColumns = Util.calculateNoOfColumns(this.context!!, 135f)
+        root.recyclerView.layoutManager = GridLayoutManager(this.context, mNoOfColumns)
         root.recyclerView.adapter = adapter
-        root.recyclerView.addItemDecoration(
-            DividerItemDecoration(
-                this@MainFragment.context,
-                LinearLayoutManager.VERTICAL
-            )
-        )
+
         root.swipe_layout.setOnRefreshListener {
             swipe_layout.isRefreshing = false
             viewModel.loadCatsData()
@@ -70,6 +68,7 @@ class MainFragment : Fragment() {
 
 
     }
+
     //view model
     private fun setupViewModel() {
         viewModel.cats.observe(viewLifecycleOwner, renderArticles)

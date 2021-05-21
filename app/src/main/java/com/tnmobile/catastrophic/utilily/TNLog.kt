@@ -1,4 +1,4 @@
-package com.tnmobile.catastrophic.util
+package com.tnmobile.catastrophic.utilily
 
 import android.util.Log
 import com.tnmobile.catastrophic.BuildConfig

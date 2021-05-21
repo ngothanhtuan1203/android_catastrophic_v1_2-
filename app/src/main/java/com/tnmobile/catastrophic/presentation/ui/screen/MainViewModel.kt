@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tnmobile.catastrophic.domain.model.Cat
 import com.tnmobile.catastrophic.domain.usecase.TNUseCase
-import com.tnmobile.catastrophic.util.TNLog
+import com.tnmobile.catastrophic.utilily.TNLog
 import kotlinx.coroutines.launch
 
 class MainViewModel @ViewModelInject constructor(
