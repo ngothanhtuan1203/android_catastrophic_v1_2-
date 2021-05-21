@@ -1,9 +1,12 @@
-package com.example.tnsecuremvvm.ui.base
+package com.tnmobile.catastrophic.presentation.ui.base
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 abstract class BaseAdapter<T, VH : BaseViewHolder<T>>(
     private var datas: List<T>,
@@ -26,7 +29,9 @@ abstract class BaseAdapter<T, VH : BaseViewHolder<T>>(
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        holder.bind(datas[position])
+        CoroutineScope(Dispatchers.IO).launch {
+            holder.bind(datas[position])
+        }
     }
 
     fun update(data: List<T>) {

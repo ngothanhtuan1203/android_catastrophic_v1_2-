@@ -1,6 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -14,6 +17,7 @@ android {
         versionCode 1
         versionName "1.0"
 
+        vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -39,7 +43,51 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation "androidx.recyclerview:recyclerview:1.2.0"
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
+
+
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$jetpack_lifecycle"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    kapt "androidx.lifecycle:lifecycle-compiler:$jetpack_lifecycle"
+
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    /**
+     * ImageView extension
+     */
+    implementation("io.coil-kt:coil:0.11.0")
+    /**
+     * Hilt dependencies injection
+     */
+    implementation "com.google.dagger:hilt-android:$hitl_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hitl_version"
+
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_lifecycle"
+    kapt "androidx.hilt:hilt-compiler:$hilt_lifecycle"
+
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+
+
+    // Coroutine Lifecycle Scopes
+    /**
+     * Retrofit-coroutines
+     */
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.8.0"
+
+    /**
+     * Room
+     */
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    androidTestImplementation "androidx.room:room-testing:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
 }

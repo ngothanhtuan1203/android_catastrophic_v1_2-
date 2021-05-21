@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">catastrophic</string>
+    <string name="an_error_occurred">An error occurred</string>
+    <string name="empty_list">Empty data!</string>
 </resources>

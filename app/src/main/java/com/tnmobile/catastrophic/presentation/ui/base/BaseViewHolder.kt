@@ -1,8 +1,8 @@
-package com.example.tnsecuremvvm.ui.base
+package com.tnmobile.catastrophic.presentation.ui.base
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
 abstract class BaseViewHolder<T>(itemView: View) : RecyclerView.ViewHolder(itemView) {
-   abstract fun bind(data: T)
+   abstract suspend fun bind(data: T)
 }
