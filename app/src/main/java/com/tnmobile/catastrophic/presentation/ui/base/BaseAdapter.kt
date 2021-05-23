@@ -3,12 +3,7 @@ package com.tnmobile.catastrophic.presentation.ui.base
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.tnmobile.catastrophic.domain.model.Cat
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 abstract class BaseAdapter<T, VH : BaseViewHolder<T>>(
     private var datas: List<T>,

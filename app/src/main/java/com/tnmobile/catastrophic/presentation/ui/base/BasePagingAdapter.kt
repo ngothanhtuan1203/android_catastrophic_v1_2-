@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 
-abstract class BasePagingAdapter<T:Any, VH : BaseViewHolder<T>>(
+abstract class BasePagingAdapter<T : Any, VH : BaseViewHolder<T>>(
     private var viewHolderResourceID: Int,
     diffUtil: DiffUtil.ItemCallback<T>
 ) :
@@ -23,6 +23,6 @@ abstract class BasePagingAdapter<T:Any, VH : BaseViewHolder<T>>(
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-      return  holder.bind(data = getItem(position))
+        return holder.bind(data = getItem(position))
     }
 }

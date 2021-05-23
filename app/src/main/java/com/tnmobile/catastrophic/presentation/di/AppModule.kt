@@ -21,6 +21,6 @@ class AppModule {
     @Provides
     @Singleton
     fun provideInteraction(tnSecureInteraction: TNCatInteraction): TNUseCase =
-            tnSecureInteraction
+        tnSecureInteraction
 
 }

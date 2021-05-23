@@ -2,7 +2,6 @@ package com.tnmobile.catastrophic.data.remote
 
 import com.tnmobile.catastrophic.data.remote.entity.CatDto
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 

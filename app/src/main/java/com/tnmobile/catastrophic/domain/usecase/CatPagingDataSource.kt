@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.collect
  * provides the data source for paging lib from api calls
  */
 @ExperimentalPagingApi
-class CatPagingDataSource (
+class CatPagingDataSource(
     private val remoteRepository: RemoteRepository,
     private val catDtoMapper: CatDtoMapper
 ) :

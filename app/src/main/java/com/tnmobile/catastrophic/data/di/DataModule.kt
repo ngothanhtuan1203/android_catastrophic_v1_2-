@@ -1,13 +1,14 @@
 package com.tnmobile.catastrophic.data.di
 
 import android.content.Context
+import com.data.util.SERVER_URL
+import com.data.util.TIME_OUT
+import com.tnmobile.catastrophic.data.local.LocalDataSource
+import com.tnmobile.catastrophic.data.local.LocalDataSourceImpl
 import com.tnmobile.catastrophic.data.local.room.AppDatabase
 import com.tnmobile.catastrophic.data.remote.APIService
 import com.tnmobile.catastrophic.data.remote.RemoteDataSource
 import com.tnmobile.catastrophic.data.remote.RemoteDataSourceImpl
-import com.data.util.*
-import com.tnmobile.catastrophic.data.local.LocalDataSource
-import com.tnmobile.catastrophic.data.local.LocalDataSourceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,6 +30,7 @@ class DataModule {
         httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         return httpLoggingInterceptor
     }
+
     /**
      * Remote data source
      */
@@ -84,7 +86,7 @@ class DataModule {
     @Provides
     @Singleton
     fun provideRemoteDataSource(remoteDataSource: RemoteDataSourceImpl): RemoteDataSource =
-            remoteDataSource
+        remoteDataSource
 
 
     /**
@@ -93,7 +95,8 @@ class DataModule {
 
     @Singleton
     @Provides
-    fun provideDatabase(@ApplicationContext appContext: Context) = AppDatabase.getDatabase(appContext)
+    fun provideDatabase(@ApplicationContext appContext: Context) =
+        AppDatabase.getDatabase(appContext)
 
     @Singleton
     @Provides
@@ -101,6 +104,7 @@ class DataModule {
 
     @Singleton
     @Provides
-    fun provideLocalDataSource(localDataSource: LocalDataSourceImpl): LocalDataSource = localDataSource
+    fun provideLocalDataSource(localDataSource: LocalDataSourceImpl): LocalDataSource =
+        localDataSource
 
 }

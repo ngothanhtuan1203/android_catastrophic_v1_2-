@@ -6,7 +6,7 @@ import com.tnmobile.catastrophic.R
 import com.tnmobile.catastrophic.domain.model.Cat
 import com.tnmobile.catastrophic.presentation.ui.base.BasePagingAdapter
 
-class CatAdapter() : BasePagingAdapter<Cat, CatViewHolder>(
+class CatAdapter : BasePagingAdapter<Cat, CatViewHolder>(
     R.layout.item_row_cat,
     REPO_COMPARATOR
 ) {

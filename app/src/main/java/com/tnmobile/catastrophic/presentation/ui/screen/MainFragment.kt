@@ -32,9 +32,9 @@ class MainFragment : Fragment() {
     lateinit var loaderStateAdapter: LoaderStateAdapter
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.main_fragment, container, false)
         mRootView = root
@@ -60,7 +60,6 @@ class MainFragment : Fragment() {
         root.recyclerView.layoutManager = GridLayoutManager(this.context, mNoOfColumns)
         root.recyclerView.adapter = adapter
         root.recyclerView.adapter = adapter.withLoadStateFooter(loaderStateAdapter)
-
 
 
     }

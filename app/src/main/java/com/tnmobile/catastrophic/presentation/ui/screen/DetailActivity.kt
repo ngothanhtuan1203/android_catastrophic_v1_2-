@@ -18,8 +18,8 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detail_fragment)
-        val urls = intent.extras?.get("url").toString();
-        cat_enlarge_image.load(urls){
+        val urls = intent.extras?.get("url").toString()
+        cat_enlarge_image.load(urls) {
             crossfade(true)
             crossfade(1000)
             transformations(RoundedCornersTransformation())

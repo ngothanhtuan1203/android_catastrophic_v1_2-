@@ -15,5 +15,6 @@ data class CatEntity(
     var canonicalDetail: String
 ) : Parcelable {
     @ColumnInfo(name = "id")
-    @PrimaryKey(autoGenerate = true) var id: Long = 0
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0
 }
