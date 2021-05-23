@@ -3,9 +3,14 @@ package com.tnmobile.catastrophic.data.di
 import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.util.Log
+import com.data.util.HEADER_CACHE_CONTROL
+import com.data.util.HEADER_PRAGMA
 import com.data.util.TIME_OUT
 import com.tnmobile.catastrophic.utilily.TNLog
+import com.tnmobile.catastrophic.utilily.Util.Companion.isNetworkConnected
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import java.io.File
@@ -16,24 +21,17 @@ import javax.inject.Inject
 class CacheablesHttpClient  @Inject constructor(
     private val app: Application
 ) {
-    val HEADER_CACHE_CONTROL = "Cache-Control"
-    val HEADER_PRAGMA = "Pragma"
+
     val TAG = CacheablesHttpClient::class.simpleName
     private val cacheSize = 5 * 1024 * 1024 // 5 MB
         .toLong()
     fun provideOkHttpClient(): OkHttpClient {
-        fun isNetworkConnected(app: Application): Boolean {
-            val cm =
-                app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            val activeNetwork = cm.activeNetworkInfo
-            return activeNetwork != null &&
-                    activeNetwork.isConnectedOrConnecting
-        }
+
         val cache = Cache(File(app.cacheDir, "someIdentifier"), cacheSize)
         val interceptor = HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
             override fun log(message: String) {
                 Log.d(
-                    "ServiceGenerator.TAG",
+                    TAG,
                     "log: http log: $message"
                 )
             }

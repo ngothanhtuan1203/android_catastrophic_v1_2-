@@ -1,6 +1,10 @@
 package com.tnmobile.catastrophic.data.di
 
+import android.content.Context
 import com.data.util.SERVER_URL
+import com.tnmobile.catastrophic.data.local.LocalDataSource
+import com.tnmobile.catastrophic.data.local.LocalDataSourceImpl
+import com.tnmobile.catastrophic.data.local.room.AppDatabase
 import com.tnmobile.catastrophic.data.remote.APIService
 import com.tnmobile.catastrophic.data.remote.RemoteDataSource
 import com.tnmobile.catastrophic.data.remote.RemoteDataSourceImpl
@@ -9,6 +13,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -64,6 +69,21 @@ class DataModule {
     @Singleton
     fun provideRemoteDataSource(remoteDataSource: RemoteDataSourceImpl): RemoteDataSource =
         remoteDataSource
+    /**
+     * Local data source
+     */
+    @Singleton
+    @Provides
+    fun provideDatabase(@ApplicationContext appContext: Context) =
+        AppDatabase.getDatabase(appContext)
 
+    @Singleton
+    @Provides
+    fun provideNoteDao(db: AppDatabase) = db.noteDao()
+
+    @Singleton
+    @Provides
+    fun provideLocalDataSource(localDataSource: LocalDataSourceImpl): LocalDataSource =
+        localDataSource
 
 }
