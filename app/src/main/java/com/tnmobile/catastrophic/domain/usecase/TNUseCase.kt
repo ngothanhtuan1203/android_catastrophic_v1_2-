@@ -1,12 +1,11 @@
 package com.tnmobile.catastrophic.domain.usecase
 
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.PagingData
+import com.tnmobile.catastrophic.domain.model.Cat
+import kotlinx.coroutines.flow.Flow
 
+@ExperimentalPagingApi
 interface TNUseCase {
-    sealed class Result {
-        data class Success<T>(val data: T) : Result()
-        data class Failure(val message: String) : Result()
-    }
-
-    suspend fun getAllCats(): Result
-    suspend fun insertCat(title: String, detail: String)
+    suspend fun getAllCats(): Flow<PagingData<Cat>>
 }

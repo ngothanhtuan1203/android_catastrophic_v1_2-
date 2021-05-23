@@ -1,8 +1,8 @@
 package com.tnmobile.catastrophic.presentation.di
 
-import com.tnmobile.catastrophic.domain.usecase.TNCatInteractor
+import androidx.paging.ExperimentalPagingApi
+import com.tnmobile.catastrophic.domain.usecase.TNCatInteraction
 import com.tnmobile.catastrophic.domain.usecase.TNUseCase
-import com.tnmobile.catastrophic.presentation.di.BaseApplication
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,6 +10,7 @@ import dagger.hilt.android.components.ApplicationComponent
 import javax.inject.Singleton
 
 @Module
+@ExperimentalPagingApi
 @InstallIn(ApplicationComponent::class)
 class AppModule {
     @Provides
@@ -19,7 +20,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideInteractor(tnSecureInteractor: TNCatInteractor): TNUseCase =
-            tnSecureInteractor
+    fun provideInteraction(tnSecureInteraction: TNCatInteraction): TNUseCase =
+            tnSecureInteraction
 
 }

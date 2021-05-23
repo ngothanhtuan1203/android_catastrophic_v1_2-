@@ -20,7 +20,7 @@ class RemoteDataSourceImpl @Inject constructor(
     private val app: Application
 ) : RemoteDataSource {
 
-    private fun isNetworkConnected(context:Application): Boolean {
+    private fun isNetworkConnected(context: Application): Boolean {
         var result = false
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -74,17 +74,18 @@ class RemoteDataSourceImpl @Inject constructor(
         return os.toByteArray()
     }
 
-    override suspend fun fetchCats(): Flow<List<CatDto>> = flow {
+    override suspend fun fetchCats(page: Int, limit: Int): Flow<List<CatDto>> = flow {
 
-        var baseRespond: BaseRespond<List<CatDto>> = BaseRespond(null,"Some thing was wrong", false)
+        var baseRespond: BaseRespond<List<CatDto>> =
+            BaseRespond(null, "Some thing was wrong", false)
         if (!isNetworkConnected(app)) {
             baseRespond = BaseRespond(null, "Your device not connected to internet", false)
         }
-         try {
+        try {
             val respondContainer =
-                apiService.fetchCatAPI()
+                apiService.fetchCatAPI(page, limit)
 
-             baseRespond = BaseRespond(respondContainer, "Success", true)
+            baseRespond = BaseRespond(respondContainer, "Success", true)
         } catch (e: Exception) {
             e.printStackTrace()
             BaseRespond(null, e.localizedMessage, false)

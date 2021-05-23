@@ -3,18 +3,14 @@ package com.tnmobile.catastrophic.presentation.ui.base
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
-import com.tnmobile.catastrophic.domain.model.Cat
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
-abstract class BaseAdapter<T, VH : BaseViewHolder<T>>(
-    private var datas: List<T>,
-    private var viewHolderResourceID: Int
+abstract class BasePagingAdapter<T:Any, VH : BaseViewHolder<T>>(
+    private var viewHolderResourceID: Int,
+    diffUtil: DiffUtil.ItemCallback<T>
 ) :
-    RecyclerView.Adapter<VH>() {
+    PagingDataAdapter<T, VH>(diffUtil) {
 
     abstract fun initViewHolder(rootView: View): VH
 
@@ -26,16 +22,7 @@ abstract class BaseAdapter<T, VH : BaseViewHolder<T>>(
         )
     }
 
-    override fun getItemCount(): Int {
-        return datas.size
-    }
-
     override fun onBindViewHolder(holder: VH, position: Int) {
-        holder.bind(datas[position])
-    }
-
-    fun update(data: List<T>) {
-        datas = data
-        notifyDataSetChanged()
+      return  holder.bind(data = getItem(position))
     }
 }

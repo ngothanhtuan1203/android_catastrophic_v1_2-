@@ -1,6 +1,6 @@
 package com.tnmobile.catastrophic.domain.model
 
-data class Cat  (
+class Cat(
     val id: String,
     val url: String,
     val width: Int,

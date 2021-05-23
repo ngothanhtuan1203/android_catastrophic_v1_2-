@@ -52,6 +52,8 @@ dependencies {
 
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$jetpack_lifecycle"
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
     kapt "androidx.lifecycle:lifecycle-compiler:$jetpack_lifecycle"
 
     testImplementation 'junit:junit:4.+'
@@ -74,7 +76,6 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
 
-
     // Coroutine Lifecycle Scopes
     /**
      * Retrofit-coroutines
@@ -90,4 +91,7 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
     androidTestImplementation "androidx.room:room-testing:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
+
+    //paging3
+    implementation "androidx.paging:paging-runtime:3.0.0-alpha03"
 }

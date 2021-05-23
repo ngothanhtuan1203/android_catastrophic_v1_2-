@@ -7,8 +7,8 @@ import javax.inject.Inject
 
 
 class RemoteRepository @Inject constructor(private val remoteDataSource: RemoteDataSource) {
-    suspend fun getCats(): Flow<List<CatDto>> {
-      return remoteDataSource.fetchCats()
+    suspend fun getCats(page: Int, limit: Int): Flow<List<CatDto>> {
+        return remoteDataSource.fetchCats(page, limit)
     }
 
 }
