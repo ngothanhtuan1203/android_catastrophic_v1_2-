@@ -1,35 +1,28 @@
 package com.tnmobile.catastrophic.data.di
 
-import android.content.Context
 import com.data.util.SERVER_URL
-import com.data.util.TIME_OUT
-import com.tnmobile.catastrophic.data.local.LocalDataSource
-import com.tnmobile.catastrophic.data.local.LocalDataSourceImpl
-import com.tnmobile.catastrophic.data.local.room.AppDatabase
 import com.tnmobile.catastrophic.data.remote.APIService
 import com.tnmobile.catastrophic.data.remote.RemoteDataSource
 import com.tnmobile.catastrophic.data.remote.RemoteDataSourceImpl
+import com.tnmobile.catastrophic.presentation.di.BaseApplication
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
-import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
 @InstallIn(ApplicationComponent::class)
 class DataModule {
-    private fun interceptor(): HttpLoggingInterceptor {
-        val httpLoggingInterceptor = HttpLoggingInterceptor()
-        httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-        return httpLoggingInterceptor
-    }
+
+    @Provides
+    @Singleton
+    fun provideApplication(): BaseApplication =
+        BaseApplication()
 
     /**
      * Remote data source
@@ -42,26 +35,10 @@ class DataModule {
     @Retention(AnnotationRetention.RUNTIME)
     annotation class BaseURL
 
-    @Qualifier
-    @Retention(AnnotationRetention.RUNTIME)
-    annotation class ServerPublicCertificate
-
-    @Qualifier
-    @Retention(AnnotationRetention.RUNTIME)
-    annotation class APIKey
-
     @Provides
     @Singleton
-    fun provideOkHttpClient(@BaseURL BASE_URL: String): OkHttpClient {
-
-
-        val httpClient: OkHttpClient.Builder =
-            OkHttpClient.Builder()
-        httpClient.addInterceptor(interceptor())
-        httpClient.readTimeout(TIME_OUT, TimeUnit.SECONDS)
-        httpClient.writeTimeout(TIME_OUT, TimeUnit.SECONDS)
-        return httpClient.build()
-    }
+    fun provideOkHttpClient(tnOkHttpClient: CacheablesHttpClient): OkHttpClient =
+        tnOkHttpClient.provideOkHttpClient()
 
     @Singleton
     @Provides
@@ -88,23 +65,5 @@ class DataModule {
     fun provideRemoteDataSource(remoteDataSource: RemoteDataSourceImpl): RemoteDataSource =
         remoteDataSource
 
-
-    /**
-     * Local data source
-     */
-
-    @Singleton
-    @Provides
-    fun provideDatabase(@ApplicationContext appContext: Context) =
-        AppDatabase.getDatabase(appContext)
-
-    @Singleton
-    @Provides
-    fun provideNoteDao(db: AppDatabase) = db.noteDao()
-
-    @Singleton
-    @Provides
-    fun provideLocalDataSource(localDataSource: LocalDataSourceImpl): LocalDataSource =
-        localDataSource
 
 }

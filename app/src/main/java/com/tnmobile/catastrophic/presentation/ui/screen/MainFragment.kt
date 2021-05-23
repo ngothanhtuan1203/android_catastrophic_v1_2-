@@ -54,7 +54,6 @@ class MainFragment : Fragment() {
     //ui
     private fun setupUI(root: View) {
         adapter = CatAdapter()
-
         loaderStateAdapter = LoaderStateAdapter { adapter.retry() }
         val mNoOfColumns = Util.calculateNoOfColumns(this.requireContext(), 135f)
         root.recyclerView.layoutManager = GridLayoutManager(this.context, mNoOfColumns)
@@ -75,7 +74,9 @@ class MainFragment : Fragment() {
         layoutError.visibility = View.GONE
         layoutEmpty.visibility = View.GONE
         recyclerView.visibility = View.VISIBLE
-        lifecycleScope.launch { adapter.submitData(it) }
+        lifecycleScope.launch {
+            adapter.submitData(it)
+        }
     }
 
 }

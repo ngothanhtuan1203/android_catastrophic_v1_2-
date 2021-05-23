@@ -13,10 +13,6 @@ import javax.inject.Singleton
 @ExperimentalPagingApi
 @InstallIn(ApplicationComponent::class)
 class AppModule {
-    @Provides
-    @Singleton
-    fun provideApplication(): BaseApplication =
-        BaseApplication()
 
     @Provides
     @Singleton
