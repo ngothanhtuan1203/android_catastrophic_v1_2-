@@ -2,7 +2,7 @@ package com.tnmobile.catastrophic.domain.usecase
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingSource
-import com.data.util.DEFAULT_PAGE_INDEX
+import com.tnmobile.catastrophic.utilily.DEFAULT_PAGE_INDEX
 import com.tnmobile.catastrophic.domain.model.Cat
 import com.tnmobile.catastrophic.domain.model.mapper.CatDtoMapper
 import com.tnmobile.catastrophic.domain.repository.RemoteRepository

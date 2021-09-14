@@ -1,7 +1,7 @@
 package com.tnmobile.catastrophic.data.di
 
 import android.content.Context
-import com.data.util.SERVER_URL
+import com.tnmobile.catastrophic.utilily.SERVER_URL
 import com.tnmobile.catastrophic.data.local.LocalDataSource
 import com.tnmobile.catastrophic.data.local.LocalDataSourceImpl
 import com.tnmobile.catastrophic.data.local.room.AppDatabase

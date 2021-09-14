@@ -11,10 +11,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.tnmobile.catastrophic.R
 import com.tnmobile.catastrophic.domain.model.Cat
+import com.tnmobile.catastrophic.domain.model.News
 import com.tnmobile.catastrophic.presentation.ui.adapter.CatAdapter
 import com.tnmobile.catastrophic.presentation.ui.adapter.LoaderStateAdapter
+import com.tnmobile.catastrophic.presentation.ui.adapter.NewsAdapter
 import com.tnmobile.catastrophic.utilily.Util
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.main_fragment.*
@@ -29,6 +32,8 @@ class MainFragment : Fragment() {
     private lateinit var mRootView: View
 
     lateinit var adapter: CatAdapter
+
+    lateinit var newsAdapter: NewsAdapter
     lateinit var loaderStateAdapter: LoaderStateAdapter
 
     override fun onCreateView(
@@ -48,17 +53,18 @@ class MainFragment : Fragment() {
         setupViewModel()
         setupUI(mRootView)
 
-        viewModel.loadCatsData()
+        viewModel.loadNewsData()
     }
 
     //ui
     private fun setupUI(root: View) {
         adapter = CatAdapter()
-        loaderStateAdapter = LoaderStateAdapter { adapter.retry() }
+        newsAdapter = NewsAdapter(emptyList())
+//        loaderStateAdapter = LoaderStateAdapter { newsAdapter.retry() }
         val mNoOfColumns = Util.calculateNoOfColumns(this.requireContext(), 135f)
-        root.recyclerView.layoutManager = GridLayoutManager(this.context, mNoOfColumns)
-        root.recyclerView.adapter = adapter
-        root.recyclerView.adapter = adapter.withLoadStateFooter(loaderStateAdapter)
+        root.recyclerView.layoutManager = LinearLayoutManager(this.context)
+        root.recyclerView.adapter = newsAdapter
+//        root.recyclerView.adapter = newsAdapter.withLoadStateFooter(loaderStateAdapter)
 
 
     }
@@ -67,6 +73,17 @@ class MainFragment : Fragment() {
     //view model
     private fun setupViewModel() {
         viewModel.cats.observe(viewLifecycleOwner, renderCats)
+        viewModel.news.observe(viewLifecycleOwner, renderNews)
+    }
+
+    private val renderNews = Observer<List<News>> {
+        layoutError.visibility = View.GONE
+        layoutEmpty.visibility = View.GONE
+        recyclerView.visibility = View.VISIBLE
+        lifecycleScope.launch {
+            newsAdapter.update(it)
+            newsAdapter.notifyDataSetChanged()
+        }
     }
 
     private val renderCats = Observer<PagingData<Cat>> {

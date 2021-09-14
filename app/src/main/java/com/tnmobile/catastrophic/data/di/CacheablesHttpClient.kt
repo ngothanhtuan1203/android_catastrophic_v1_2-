@@ -1,14 +1,10 @@
 package com.tnmobile.catastrophic.data.di
 
 import android.app.Application
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.Build
 import android.util.Log
-import com.data.util.HEADER_CACHE_CONTROL
-import com.data.util.HEADER_PRAGMA
-import com.data.util.TIME_OUT
+import com.tnmobile.catastrophic.utilily.HEADER_CACHE_CONTROL
+import com.tnmobile.catastrophic.utilily.HEADER_PRAGMA
+import com.tnmobile.catastrophic.utilily.TIME_OUT
 import com.tnmobile.catastrophic.utilily.TNLog
 import com.tnmobile.catastrophic.utilily.Util.Companion.isNetworkConnected
 import okhttp3.*

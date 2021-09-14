@@ -21,6 +21,8 @@
         </activity>
 
         <activity android:name=".presentation.ui.screen.DetailActivity"></activity>
+        <activity android:name=".presentation.ui.screen.WebReaderActivity"></activity>
+        <activity android:name=".presentation.ui.screen.SmartReaderActivity"></activity>
     </application>
 
 </manifest>

@@ -1,7 +1,7 @@
 package com.tnmobile.catastrophic.presentation.di
 
 import androidx.paging.ExperimentalPagingApi
-import com.tnmobile.catastrophic.domain.usecase.TNCatInteraction
+import com.tnmobile.catastrophic.domain.usecase.TNInteraction
 import com.tnmobile.catastrophic.domain.usecase.TNUseCase
 import dagger.Module
 import dagger.Provides
@@ -16,7 +16,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideInteraction(tnSecureInteraction: TNCatInteraction): TNUseCase =
+    fun provideInteraction(tnSecureInteraction: TNInteraction): TNUseCase =
         tnSecureInteraction
 
 }

@@ -3,6 +3,7 @@ package com.tnmobile.catastrophic.data.remote
 import android.app.Application
 import com.tnmobile.catastrophic.data.remote.entity.BaseRespond
 import com.tnmobile.catastrophic.data.remote.entity.CatDto
+import com.tnmobile.catastrophic.domain.model.News
 import com.tnmobile.catastrophic.utilily.Util.Companion.isNetworkConnected
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -37,4 +38,53 @@ class RemoteDataSourceImpl @Inject constructor(
             emit(emptyList())
         }
     }
+
+    override suspend fun fetchNews(): Flow<List<News>> = flow {
+        var baseRespond: BaseRespond<List<News>> =
+            BaseRespond(null, "Some thing was wrong", false)
+        if (!isNetworkConnected(app)) {
+            baseRespond = BaseRespond(null, "Your device not connected to internet", false)
+        }
+
+        try {
+            val respondContainer =
+                apiService.fetchNews()
+
+            baseRespond = BaseRespond(respondContainer, "Success", true)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            BaseRespond(null, e.localizedMessage, false)
+        }
+
+        if (baseRespond.isSuccess) {
+            val articleDtoList = baseRespond.data
+            emit(articleDtoList!!)
+        } else {
+            emit(emptyList())
+        }
+    }
+
+   /* override suspend fun fetchNews(): Flow<List<News>> = flow {
+        var baseRespond: BaseRespond<List<News>> =
+            BaseRespond(null, "Some thing was wrong", false)
+        if (!isNetworkConnected(app)) {
+            baseRespond = BaseRespond(null, "Your device not connected to internet", false)
+        }
+        try {
+            val respondContainer =
+                apiService.fetchNews()
+
+            baseRespond = BaseRespond(respondContainer, "Success", true)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            BaseRespond(null, e.localizedMessage, false)
+        }
+
+        if (baseRespond.isSuccess) {
+            val articleDtoList = baseRespond.data
+            emit(articleDtoList!!)
+        } else {
+            emit("")
+        }
+    }*/
 }

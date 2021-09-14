@@ -25,4 +25,25 @@
             android:defaultValue="https://www.github.com"
             app:argType="string" />
     </activity>
+
+
+    <activity
+        android:id="@+id/action_navigation_main_to_WebReaderActivity"
+        android:name="com.tnmobile.catastrophic.presentation.ui.screen.WebReaderActivity"
+        android:label="Detail">
+        <argument
+            android:name="url"
+            android:defaultValue="https://www.github.com"
+            app:argType="string" />
+    </activity>
+
+    <activity
+        android:id="@+id/action_navigation_main_to_SmartView"
+        android:name="com.tnmobile.catastrophic.presentation.ui.screen.SmartReaderActivity"
+        android:label="Reader">
+        <argument
+            android:name="url"
+            android:defaultValue="https://www.github.com"
+            app:argType="string" />
+    </activity>
 </navigation>

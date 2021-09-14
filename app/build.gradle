@@ -94,4 +94,6 @@ dependencies {
 
     //paging3
     implementation "androidx.paging:paging-runtime:3.0.0-alpha03"
+
+    implementation 'org.jsoup:jsoup:1.11.1'
 }

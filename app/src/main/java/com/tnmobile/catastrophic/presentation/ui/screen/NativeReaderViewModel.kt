@@ -10,35 +10,35 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.tnmobile.catastrophic.domain.model.Cat
 import com.tnmobile.catastrophic.domain.model.News
+import com.tnmobile.catastrophic.domain.model.ReaderViewItem
 import com.tnmobile.catastrophic.domain.usecase.TNUseCase
 import com.tnmobile.catastrophic.utilily.TNLog
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.Dispatcher
 
 @ExperimentalPagingApi
-class MainViewModel
+class NativeReaderViewModel
 @ViewModelInject constructor(
     private val tnUseCase: TNUseCase
 ) : ViewModel() {
-    private val _cats =
-        MutableLiveData<PagingData<Cat>>().apply { value = PagingData.empty() }
-    val cats: LiveData<PagingData<Cat>> = _cats
+    private val _readData =
+        MutableLiveData<ReaderViewItem>().apply { value = null }
+    val data: LiveData<ReaderViewItem> = _readData
 
 
-    private val _news =
-        MutableLiveData<List<News>>().apply { value = emptyList() }
-    val news: LiveData<List<News>> = _news
+    fun loadSmartViewData(url:String) = viewModelScope.launch {
+        withContext(Dispatchers.IO) {
+            tnUseCase.parseData(url).collectLatest {
+                withContext(Dispatchers.Main) {
+                    _readData.value = it
+                }
 
-    fun loadCatsData() = viewModelScope.launch {
-        tnUseCase.getAllCats().cachedIn(viewModelScope).distinctUntilChanged().collectLatest {
-            _cats.value = it
+            }
         }
-    }
 
-    fun loadNewsData() = viewModelScope.launch {
-        tnUseCase.getAllNews().collectLatest {
-            _news.value = it
-        }
     }
 }

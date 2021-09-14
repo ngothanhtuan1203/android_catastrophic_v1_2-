@@ -1,4 +1,4 @@
-package com.data.util
+package com.tnmobile.catastrophic.utilily
 
 
 const val TIME_OUT: Long = 45
@@ -8,3 +8,8 @@ const val DEFAULT_PAGE_SIZE = 20
 
 const val HEADER_CACHE_CONTROL = "Cache-Control"
 const val HEADER_PRAGMA = "Pragma"
+
+
+enum class ReadType {
+    PARAGRAPH, FIGURE, BLOCKQUOTE, HEADING
+}
